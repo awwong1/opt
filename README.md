@@ -1,5 +1,7 @@
 # opt
 
+[![awwong1/opt](https://circleci.com/gh/awwong1/opt.svg?style=shield)](https://circleci.com/gh/awwong1/opt)
+
 `opt`: to make a choice, to decide in favor of something
 
 ## Development
