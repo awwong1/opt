@@ -18,28 +18,40 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run: mix local.hex --force    # Install hex non-interactively
+      - run: mix local.rebar --force  # Install rebar3 non-interactively
       - restore_cache:
           keys:
             - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
       - restore_cache:
           keys:
             - v1-build-cache-{{ .Branch }}
-      - run: mix local.hex --force    # Install hex non-interactively
-      - run: mix local.rebar --force  # Install rebar3 non-interactively
-      - run: mix deps.get
+            - v1-build-cache
+      - run: mix do deps.get, compile
       - save_cache:
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache:
           key: v1-build-cache-{{ .Branch }}
           paths: "_build"
+      - run:  # special utility that stalls main process until DB is ready
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - restore_cache:
           keys:
             - v1-node-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
+            - v1-node-cache-{{ .Branch }}
+            - v1-node-cache
       - run:
           working_directory: assets
           command: npm install
       - save_cache:
           key: v1-node-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
           paths: assets/node_modules
-      - run: mix test
+      - run: mix test --cover
+      - store_test_results:
+          path: _build/test/lib/opt
+      - store_artifacts:
+          path: cover
