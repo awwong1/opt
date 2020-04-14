@@ -1,6 +1,7 @@
 # opt
 
 [![awwong1/opt](https://circleci.com/gh/awwong1/opt.svg?style=shield)](https://circleci.com/gh/awwong1/opt)
+[![Coverage Status](https://coveralls.io/repos/github/awwong1/opt/badge.svg?branch=)](https://coveralls.io/github/awwong1/opt?branch=)
 
 `opt`: to make a choice, to decide in favor of something
 

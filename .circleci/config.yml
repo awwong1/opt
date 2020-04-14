@@ -50,8 +50,6 @@ jobs:
       - save_cache:
           key: v1-node-cache-{{ .Branch }}-{{ checksum "assets/package-lock.json" }}
           paths: assets/node_modules
-      - run: mix test --cover
+      - run: mix coveralls.circle
       - store_test_results:
           path: _build/test/lib/opt
-      - store_artifacts:
-          path: cover
