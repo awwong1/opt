@@ -17,12 +17,19 @@ config :opt, OptWeb.Endpoint,
   secret_key_base: "OYdKcQOWnrX4kQm6ke8lw2+E3H7eqyTGval3foxs7CoLAb1/00wT2IzmUi2lYwkI",
   render_errors: [view: OptWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Opt.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "YK6NVofp"]
+  live_view: [signing_salt: "8vuLZc7LxW1YKObAk/EzXywXYYCXJmWG"]
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# Configures Argon2 Password Hashing
+config :argon2_elixir,
+  t_cost: 8,
+  m_cost: 17,
+  parallelism: 4,
+  argon2_type: 2
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

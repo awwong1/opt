@@ -23,6 +23,7 @@ defmodule OptWeb do
 
       import Plug.Conn
       import OptWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias OptWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,7 @@ defmodule OptWeb do
 
       import OptWeb.ErrorHelpers
       import OptWeb.Gettext
+      import Phoenix.LiveView.Helpers
       alias OptWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +52,7 @@ defmodule OptWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

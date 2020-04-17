@@ -52,6 +52,10 @@ defmodule Opt.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:distillery, "~> 2.1"},
+      {:argon2_elixir, "~> 2.3"},
+      {:phoenix_live_view, "~> 0.12"},
+      {:phoenix_live_dashboard, "~> 0.1"},
+      {:floki, ">= 0.0.0", only: :test},
       {:excoveralls, "~> 0.12", only: :test},
       {:junit_formatter, "~> 3.1", only: :test}
     ]

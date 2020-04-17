@@ -36,7 +36,8 @@ mix deps.get
 # Create and migrate the database
 mix ecto.setup
 # Install Node.js dependencies
-cd assets && npm install && cd ..
+npm install --prefix assets
+# cd assets && npm install && cd ..
 # Start the application
 mix phx.server
 ```
