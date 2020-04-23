@@ -16,7 +16,7 @@ config :opt, OptWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "OYdKcQOWnrX4kQm6ke8lw2+E3H7eqyTGval3foxs7CoLAb1/00wT2IzmUi2lYwkI",
   render_errors: [view: OptWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Opt.PubSub, adapter: Phoenix.PubSub.PG2],
+  pubsub_server: OptWeb.PubSub,
   live_view: [signing_salt: "8vuLZc7LxW1YKObAk/EzXywXYYCXJmWG"]
 
 # Configures Elixir's Logger
