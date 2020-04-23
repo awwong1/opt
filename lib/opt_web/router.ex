@@ -36,5 +36,6 @@ defmodule OptWeb.Router do
     pipe_through :browser
     live_dashboard "/dashboard"
   end
+
   # end
 end
