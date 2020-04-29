@@ -7,14 +7,14 @@ defmodule Opt.AccountsTest do
     alias Opt.Accounts.User
 
     @valid_attrs %{
-      password: "some password 123!",
-      username: "some_username"
+      username: "some_username",
+      password: "some password 123!"
     }
     @update_attrs %{
+      username: "updated_username",
       password: "~456 some updated password",
-      username: "updated_username"
     }
-    @invalid_attrs %{password: nil, username: nil}
+    @invalid_attrs %{username: nil, password: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =

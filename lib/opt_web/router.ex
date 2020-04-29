@@ -4,8 +4,8 @@ defmodule OptWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    # plug :fetch_flash
     plug :fetch_live_flash
+    plug :put_root_layout, {OptWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -17,7 +17,15 @@ defmodule OptWeb.Router do
   scope "/", OptWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
+    live "/", PageLive, :index
+
+    live "/users", UserLive.Index, :index
+    live "/users/new", UserLive.Index, :new
+    live "/users/:id/edit", UserLive.Index, :edit
+
+    live "/users/:id", UserLive.Show, :show
+    live "/users/:id/show/edit", UserLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
@@ -34,7 +42,7 @@ defmodule OptWeb.Router do
   # if Mix.env() == :dev do
   scope "/" do
     pipe_through :browser
-    live_dashboard "/dashboard"
+    live_dashboard "/dashboard", metrics: OptWeb.Telemetry
   end
 
   # end
