@@ -53,6 +53,7 @@ defmodule Opt.MixProject do
       {:plug_cowboy, "~> 2.1"},
       {:distillery, "~> 2.1"},
       {:argon2_elixir, "~> 2.3"},
+      {:guardian, "~> 2.1"},
       {:phoenix_live_view, "~> 0.12"},
       {:phoenix_live_dashboard, "~> 0.1"},
       {:floki, ">= 0.0.0", only: :test},

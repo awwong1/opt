@@ -16,7 +16,8 @@
             "request": "launch",
             "task": "test",
             "taskArgs": [
-                "--trace"
+                "--trace",
+                "test/opt/accounts_test.exs:108"
             ],
             "startApps": true,
             "projectDir": "${workspaceRoot}",

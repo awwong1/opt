@@ -105,6 +105,20 @@ defmodule Opt.AccountsTest do
       assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
     end
 
+    test "authenticate_user/2 with valid username returns a user" do
+      _user = user_fixture()
+      assert {:ok, %User{}} = Accounts.authenticate_user("some_username", "some password 123!")
+      assert {:error, :invalid_credentials} = Accounts.authenticate_user("some_username", "bad password 789~")
+      assert {:error, :invalid_credentials} = Accounts.authenticate_user("bad_username", "some password 123!")
+    end
+
+    test "authenticate_user/2 with valid email returns a user" do
+      _user = user_fixture(session_email: "test.email@udia.ca")
+      assert {:ok, %User{}} = Accounts.authenticate_user("test.email@udia.ca", "some password 123!")
+      assert {:error, :invalid_credentials} = Accounts.authenticate_user("test.email@udia.ca", "bad password 789~")
+      assert {:error, :invalid_credentials} = Accounts.authenticate_user("bad.email@udia.ca", "some password 123!")
+    end
+
     test "change_user/1 returns a user changeset" do
       user = user_fixture()
       assert %Ecto.Changeset{} = Accounts.change_user(user)

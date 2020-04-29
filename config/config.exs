@@ -19,6 +19,11 @@ config :opt, OptWeb.Endpoint,
   pubsub_server: OptWeb.PubSub,
   live_view: [signing_salt: "8vuLZc7LxW1YKObAk/EzXywXYYCXJmWG"]
 
+# Configure Guardian authentication
+config :opt, Opt.Accounts.Guardian,
+  issuer: "opt",
+  secret_key: "uy2c39n6DjKrbH5AT1FsZzEDvm+8bldjnkCWefNV6v0GfOYQPKM98WWL4po7lKo1"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

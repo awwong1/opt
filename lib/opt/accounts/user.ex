@@ -26,10 +26,17 @@ defmodule Opt.Accounts.User do
     )
     |> validate_length(:username, min: 2, max: 32)
     |> validate_confirmation(:password, message: "does not match password", required: pw_required)
-    |> validate_length(:password, min: 6, max: 128)
+    |> validate_length(:password, min: 6, max: 255)
     |> validate_format(:session_email, ~r/^[\w.%+-]+@[\w.-]+\.[\w]{2,}$/,
       message: "must be a valid email address"
     )
     |> unique_constraint([:username])
+    |> put_pw_hash
   end
+
+  defp put_pw_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    Ecto.Changeset.change(changeset, password_hash: Argon2.hash_pwd_salt(password))
+  end
+
+  defp put_pw_hash(changeset), do: changeset
 end

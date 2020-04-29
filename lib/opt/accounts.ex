@@ -51,9 +51,7 @@ defmodule Opt.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    new_user =
-      User.changeset(%User{}, attrs)
-      |> put_pw_hash()
+    new_user = User.changeset(%User{}, attrs)
 
     multi_result =
       Multi.new()
@@ -146,12 +144,6 @@ defmodule Opt.Accounts do
     |> Repo.update()
   end
 
-  defp put_pw_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    Ecto.Changeset.change(changeset, password_hash: Argon2.hash_pwd_salt(password))
-  end
-
-  defp put_pw_hash(changeset), do: changeset
-
   @doc """
   Deletes a user.
 
@@ -166,6 +158,40 @@ defmodule Opt.Accounts do
   """
   def delete_user(%User{} = user) do
     Repo.delete(user)
+  end
+
+  @doc """
+  Authenticates a user, given an identifier. Identifier can be either a username or email.
+  """
+  def authenticate_user(identifier, plain_text_password) do
+    is_email =
+      identifier
+      |> String.trim()
+      |> String.match?(~r/^[\w.%+-]+@[\w.-]+\.[\w]{2,}$/)
+
+    query =
+      case is_email do
+        true ->
+          from e in Email,
+          join: u in User,
+          on: u.id == e.user_id,
+          where: e.email == ^(String.trim(identifier)),
+          select: u
+        _ ->
+          from u in User, where: u.username == ^(String.trim(identifier))
+      end
+
+    case Repo.one(query) do
+      nil ->
+        Argon2.no_user_verify()
+        {:error, :invalid_credentials}
+      user ->
+        if Argon2.verify_pass(plain_text_password, user.password_hash) do
+          {:ok, user}
+        else
+          {:error, :invalid_credentials}
+        end
+    end
   end
 
   @doc """
