@@ -9,7 +9,7 @@ jobs:
       - image: circleci/elixir:1.11.3-node
         environment:
           - MIX_ENV=test
-      - image: circleci/postgres:13.1-alpine
+      - image: circleci/postgres:13.1-ram
         environment:
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
