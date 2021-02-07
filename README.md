@@ -9,16 +9,17 @@
 
 ```bash
 elixir -v
-# Erlang/OTP 22 [erts-10.7] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe]
-# Elixir 1.9.4 (compiled with Erlang/OTP 22)
+# Erlang/OTP 23 [erts-11.1.6] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe]
+
+# Elixir 1.11.3 (compiled with Erlang/OTP 23)
 node -v
-# v12.16.1
+# v14.15.4
 docker -v
-# Docker version 19.03.8, build afacb8b7f0
+# Docker version 20.10.2, build 2291f61
 ```
 ```bash
 # fetch Postgres from Docker and mount a local volume for persistence
-docker pull postgres:12.2
+docker pull postgres:13.1-alpine
 mkdir -p ${HOME}/docker/volumes/pg_opt_dev
 docker run \
   --rm \
@@ -29,7 +30,7 @@ docker run \
   --publish 5432:5432 \
   --volume ${HOME}/docker/volumes/pg_opt_dev:/var/lib/postgresql/data \
   --detach \
-  postgres:12.2
+  postgres:13.1-alpine
 
 # Fetch elixir dependencies
 mix deps.get
