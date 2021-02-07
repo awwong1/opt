@@ -19,6 +19,7 @@ defmodule OptWeb.Router do
 
     live "/", PageLive, :index
     live "/counter", CounterLive
+    live "/long_stock_calc", LongStockCalcLive
   end
 
   # Other scopes may use custom stacks.
