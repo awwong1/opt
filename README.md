@@ -32,13 +32,8 @@ docker run \
   --detach \
   postgres:13.1-alpine
 
-# Fetch elixir dependencies
-mix deps.get
-# Create and migrate the database
-mix ecto.setup
-# Install Node.js dependencies
-npm install --prefix assets
-# cd assets && npm install && cd ..
+# Fetch elixir dependencies, setup DB, and install Node.js dependencies
+mix setup
 # Start the application
 mix phx.server
 ```
@@ -65,18 +60,19 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 # License
 
 [Apache Version 2.0](LICENSE)
+
 ```text
-   Copyright 2020 Alexander Wong, Udia Software Incorporated
+Copyright 2020-2021 Alexander Wong, Udia Software Incorporated
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```

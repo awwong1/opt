@@ -6,10 +6,10 @@ jobs:
   build:
     docker:
       # specify the version here
-      - image: circleci/elixir:1.9.4-node
+      - image: circleci/elixir:1.11.3-node
         environment:
           - MIX_ENV=test
-      - image: circleci/postgres:12.2
+      - image: circleci/postgres:13.1-alpine
         environment:
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres

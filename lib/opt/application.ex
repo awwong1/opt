@@ -6,16 +6,17 @@ defmodule Opt.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # Start the PubSub system
-      {Phoenix.PubSub, name: OptWeb.PubSub},
       # Start the Ecto repository
       Opt.Repo,
-      # Start the endpoint when the application starts
+      # Start the Telemetry supervisor
+      OptWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Opt.PubSub},
+      # Start the Endpoint (http/https)
       OptWeb.Endpoint
-      # Starts a worker by calling: Opt.Worker.start_link(arg)
-      # {Opt.Worker, arg},
+      # Start a worker by calling: Opt.Worker.start_link(arg)
+      # {Opt.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

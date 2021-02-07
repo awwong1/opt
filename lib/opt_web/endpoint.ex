@@ -7,7 +7,7 @@ defmodule OptWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_opt_key",
-    signing_salt: "drw1ugnJ"
+    signing_salt: "i+Cs4IW2"
   ]
 
   socket "/socket", OptWeb.UserSocket,

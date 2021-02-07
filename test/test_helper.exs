@@ -1,3 +1,2 @@
-ExUnit.configure(formatters: [JUnitFormatter, ExUnit.CLIFormatter])
-ExUnit.start(exclude: [:skip])
+ExUnit.start()
 Ecto.Adapters.SQL.Sandbox.mode(Opt.Repo, :manual)
