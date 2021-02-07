@@ -1,7 +1,7 @@
 {
   "emmet.includeLanguages": {
     "html-eex": "html",
-    "elixir": "html"
+    // "elixir": "html"
   },
   "emmet.triggerExpansionOnTab": true,
   "editor.tabSize": 2,

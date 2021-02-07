@@ -1,22 +1,27 @@
 defmodule OptWeb.CounterLive do
+  require Logger
   use OptWeb, :live_view
 
   def mount(_params, _session, socket) do
+    Logger.debug "#{inspect self()} CounterLive.mount/3"
     socket = assign(socket, :counter, 10)
     {:ok, socket}
   end
 
   def render(assigns) do
+    Logger.debug "#{inspect self()} CounterLive.render/1"
     ~L"""
     <div id="counter" class="phx-hero">
       <h1>Simple Counter</h1>
-      <h2><%= @counter %></h2>
+      <h2><%= @counter %>/100</h2>
 
-      <button phx-click="off">Counter 0</button>
-      <button phx-click="up">+10</button>
-      <button phx-click="rand">Random</button>
-      <button phx-click="down">-10</button>
-      <button phx-click="on">Counter 100</button>
+      <div>
+        <button phx-click="off">Clear</button>
+        <button phx-click="up">+10</button>
+        <button phx-click="rand">Random</button>
+        <button phx-click="down">-10</button>
+        <button phx-click="on">Max</button>
+      </div>
     </div>
     """
   end
