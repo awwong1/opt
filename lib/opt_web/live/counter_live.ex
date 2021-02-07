@@ -4,7 +4,7 @@ defmodule OptWeb.CounterLive do
 
   def mount(_params, _session, socket) do
     Logger.debug "#{inspect self()} CounterLive.mount/3"
-    socket = assign(socket, :counter, 10)
+    socket = assign(socket, counter: 10, inc: 5)
     {:ok, socket}
   end
 
@@ -17,10 +17,14 @@ defmodule OptWeb.CounterLive do
 
       <div>
         <button phx-click="off">Clear</button>
-        <button phx-click="up">+10</button>
+        <button phx-click="up">+<%= @inc %></button>
         <button phx-click="rand">Random</button>
-        <button phx-click="down">-10</button>
+        <button phx-click="down">-<%= @inc %></button>
         <button phx-click="on">Max</button>
+      </div>
+      <div>
+        <button phx-click="inc-up">Inc+</button>
+        <button phx-click="inc-down">Inc-</button>
       </div>
     </div>
     """
@@ -39,17 +43,27 @@ defmodule OptWeb.CounterLive do
   def handle_event("up", _, socket) do
     # counter = socket.assigns.counter + 10
     # socket = assign(socket, :counter, counter)
-    socket = update(socket, :counter, &(min(&1 + 10, 100)))
+    inc = socket.assigns.inc
+    socket = update(socket, :counter, &(min(&1 + inc, 100)))
     {:noreply, socket}
   end
 
   def handle_event("down", _, socket) do
-    {:noreply, update(socket, :counter, &(max(&1 - 10, 0)))}
+    inc = socket.assigns.inc
+    {:noreply, update(socket, :counter, &(max(&1 - inc, 0)))}
   end
 
   def handle_event("rand", _, socket) do
     val = :rand.uniform(100)
     socket = assign(socket, :counter, val)
     {:noreply, socket}
+  end
+
+  def handle_event("inc-up", _, socket) do
+    {:noreply, update(socket, :inc, &(min(&1 + 1, 100)))}
+  end
+
+  def handle_event("inc-down", _, socket) do
+    {:noreply, update(socket, :inc, &(max(&1 - 1, 1)))}
   end
 end
